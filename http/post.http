@@ -1,0 +1,67 @@
+### 게시글 생성
+POST http://localhost:3000/api/groups/66d017aea7a0e923335dc8ba/posts
+Content-Type: application/json
+
+{
+  "nickname": "JohnDoe",
+  "title": "My First Post",
+  "content": "This is the content of my first post.",
+  "postPassword": "postpassword123",
+  "groupPassword": "grouppassword123",
+  "imageUrl": "http://example.com/image.jpg",
+  "tags": ["tag1", "tag2"],
+  "location": "New York",
+  "moment": "2024-08-31T10:00:00Z",
+  "isPublic": true
+}
+
+
+
+
+### 게시글 목록 조회
+GET http://localhost:3000/api/groups/66d017aea7a0e923335dc8b6/posts?page=1&pageSize=10&sortBy=latest&keyword=post&isPublic=true
+Content-Type: application/json
+
+### 게시글 수정
+PUT http://localhost:3000/api/posts/66d435f20417661f5941c65e
+Content-Type: application/json
+
+{
+  "nickname": "JohnDoeUpdated",
+  "title": "Updated Post Title",
+  "content": "This is the updated content of my post.",
+  "postPassword": "postpassword123",
+  "imageUrl": "http://example.com/newimage.jpg",
+  "tags": ["tag3", "tag4"],
+  "location": "San Francisco",
+  "moment": "2024-09-01T12:00:00Z",
+  "isPublic": false
+}
+
+### 게시글 삭제
+DELETE http://localhost:3000/api/posts/66d4356f0417661f5941c64b
+Content-Type: application/json
+
+{
+  "postPassword": "postpassword123"
+}
+
+### 게시글 상세 정보 조회
+GET http://localhost:3000/api/posts/66d435f20417661f5941c65e
+Content-Type: application/json
+
+### 게시글 조회 권한 확인
+POST http://localhost:3000/api/posts/66d435f20417661f5941c65e/verify-password
+Content-Type: application/json
+
+{
+  "password": "postpassword123"
+}
+
+### 게시글 공감하기
+POST http://localhost:3000/api/posts/66d435f20417661f5941c65e/like
+Content-Type: application/json
+
+### 게시글 공개 여부 확인
+GET http://localhost:3000/api/posts/66d435f20417661f5941c65e/is-public
+Content-Type: application/json
