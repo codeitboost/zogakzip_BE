@@ -1,16 +1,16 @@
 ### 게시글 생성
-POST http://localhost:3000/api/groups/66d017aea7a0e923335dc8ba/posts
+POST http://localhost:3000/api/groups/66d017aea7a0e923335dc8b6/posts
 Content-Type: application/json
 
 {
-  "nickname": "JohnDoe",
+  "nickname": "lee",
   "title": "My First Post",
   "content": "This is the content of my first post.",
   "postPassword": "postpassword123",
-  "groupPassword": "grouppassword123",
+  "groupPassword": "1111",
   "imageUrl": "http://example.com/image.jpg",
   "tags": ["tag1", "tag2"],
-  "location": "New York",
+  "location": "Korea",
   "moment": "2024-08-31T10:00:00Z",
   "isPublic": true
 }
@@ -33,7 +33,7 @@ Content-Type: application/json
   "postPassword": "postpassword123",
   "imageUrl": "http://example.com/newimage.jpg",
   "tags": ["tag3", "tag4"],
-  "location": "San Francisco",
+  "location": "Korea",
   "moment": "2024-09-01T12:00:00Z",
   "isPublic": false
 }
