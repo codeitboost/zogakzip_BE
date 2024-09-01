@@ -5,7 +5,10 @@ const groupSchema = new mongoose.Schema({
   password: { type: String, required: true },
   imageUrl: { type: String },
   isPublic: { type: Boolean, default: true },
-  introduction: { type: String }
-}, { timestamps: true });
+  introduction: { type: String },
+  likeCount: { type: Number, default: 0 } // 공감 수 필드 추가
+});
 
-module.exports = mongoose.model('Group', groupSchema);
+const Group = mongoose.model('Group', groupSchema);
+
+module.exports = Group;

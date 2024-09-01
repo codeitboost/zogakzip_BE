@@ -2,20 +2,30 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const groupRoutes = require('./routes/groupRoutes');
+const commentRoutes = require('./routes/commentRoutes'); // 댓글 라우트 추가
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// 데이터베이스 연결
-mongoose.connect('mongodb://localhost:27017/mydatabase')
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+// MongoDB 연결
+const mongoUri = 'mongodb+srv://chosj8575:<db_password>@cluster0.jhadc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+mongoose.connect(mongoUri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => {
+  console.log('MongoDB 연결 성공');
+}).catch((error) => {
+  console.error('MongoDB 연결 실패:', error);
+});
 
-// 미들웨어 설정
-app.use(bodyParser.json()); // 요청 본문을 JSON으로 파싱
-app.use('/api', groupRoutes); // '/api' 경로로 시작하는 모든 요청을 groupRoutes로 처리
+// 미들웨어
+app.use(bodyParser.json());
+
+// 라우트 설정
+app.use('/api/groups', groupRoutes);
+app.use('/api/comments', commentRoutes); // 댓글 라우트 추가
 
 // 서버 시작
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`서버가 포트 ${PORT}에서 실행 중입니다.`);
 });
