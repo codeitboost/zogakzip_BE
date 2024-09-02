@@ -1,0 +1,10 @@
+POST /api/image HTTP/1.1
+Host: localhost:3000
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="example.jpg"
+Content-Type: image/jpeg
+
+(이미지 파일 데이터)
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
