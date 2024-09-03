@@ -1,0 +1,66 @@
+//그룹 생성
+POST http://localhost:3000/api/groups
+Content-Type: application/json
+
+{
+  "name": "Test",
+  "description": "This is a new group",
+  "password": "groupPassword123",
+  "isPublic": true
+}
+
+
+
+//그룹 목록 조회
+###
+GET /api/groups HTTP/1.1
+Host: localhost:3000
+
+//그룹 상세 조회
+###
+GET /api/groups/66d5500f6a047b1d954d1778 HTTP/1.1
+Host: localhost:3000
+
+//그룹 정보 수정
+###
+PUT /api/groups/66d5500f6a047b1d954d1778 HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+  "name": "Updated Test Group",
+  "description": "Updated group description",
+  "password": "newGroupPassword123",
+  "isPublic": false
+}
+
+//그룹 삭제
+###
+DELETE /api/groups/66d54ff96a047b1d954d1774 HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+  "password": "groupPassword123"
+}
+
+//그룹 비밀번호 확인
+###
+POST /api/groups/66d5500f6a047b1d954d1778/verify-password HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+  "password": "newGroupPassword123"
+}
+
+//그룹 공감
+###
+POST /api/groups/66d5500f6a047b1d954d1778/like HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+//그룹 공개 여부 확인
+###
+GET /api/groups/66d5500f6a047b1d954d1778/is-public HTTP/1.1
+Host: localhost:3000

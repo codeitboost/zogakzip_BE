@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Group = require('../models/group');
 
 // 그룹 등록
-router.post('/groups', async (req, res) => {
+router.post('/', async (req, res) => { // '/groups' 대신 '/' 사용
   try {
     const { name, password, imageUrl, isPublic, introduction } = req.body;
     if (!name || !password) {
@@ -16,12 +16,12 @@ router.post('/groups', async (req, res) => {
     res.status(201).json(group);
   } catch (error) {
     console.error('Error saving group:', error);
-    res.status(400).json({ message: '잘못된 요청입니다' });
-  }
+    res.status(500).json({ message: '서버 오류' });
+  } 
 });
 
 // 그룹 목록 조회
-router.get('/groups', async (req, res) => {
+router.get('/', async (req, res) => { // '/groups' 대신 '/' 사용
   try {
     const groups = await Group.find();
     res.status(200).json(groups);
@@ -32,7 +32,7 @@ router.get('/groups', async (req, res) => {
 });
 
 // 그룹 상세 정보 조회
-router.get('/groups/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: '잘못된 그룹 ID입니다' });
@@ -47,7 +47,7 @@ router.get('/groups/:id', async (req, res) => {
 });
 
 // 그룹 수정
-router.put('/groups/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: '잘못된 그룹 ID입니다' });
@@ -62,7 +62,7 @@ router.put('/groups/:id', async (req, res) => {
 });
 
 // 그룹 삭제
-router.delete('/groups/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: '잘못된 그룹 ID입니다' });
@@ -77,7 +77,7 @@ router.delete('/groups/:id', async (req, res) => {
 });
 
 // 비밀번호 확인
-router.post('/groups/:id/check-password', async (req, res) => {
+router.post('/:id/check-password', async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: '잘못된 그룹 ID입니다' });
@@ -101,7 +101,7 @@ router.post('/groups/:id/check-password', async (req, res) => {
 });
 
 // 공감하기 기능
-router.post('/groups/:id/like', async (req, res) => {
+router.post('/:id/like', async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: '잘못된 그룹 ID입니다' });
@@ -120,7 +120,7 @@ router.post('/groups/:id/like', async (req, res) => {
 });
 
 // 그룹 공개 여부 확인
-router.get('/groups/:id/is-public', async (req, res) => {
+router.get('/:id/is-public', async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ message: '잘못된 그룹 ID입니다' });

@@ -1,0 +1,11 @@
+POST /api/posts/66d49bcffe2717323ea3e1a7/comments
+Content-Type: application/json
+
+{
+  "nickname": "your_nickname",
+  "content": "your_content",
+  "password": "your_password"
+}
+
+###
+GET /api/posts/66d46d8fdf279a6dc8de18b3/comments

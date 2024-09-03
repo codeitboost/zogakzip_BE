@@ -1,31 +1,23 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+const commentRoutes = require('./routes/commentRoutes');
 const groupRoutes = require('./routes/groupRoutes');
-const commentRoutes = require('./routes/commentRoutes'); // 댓글 라우트 추가
+const postRoutes = require('./routes/postRoutes');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
-// MongoDB 연결
-const mongoUri = 'mongodb+srv://chosj8575:<db_password>@cluster0.jhadc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
-mongoose.connect(mongoUri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log('MongoDB 연결 성공');
-}).catch((error) => {
-  console.error('MongoDB 연결 실패:', error);
-});
+app.use(express.json());
 
-// 미들웨어
-app.use(bodyParser.json());
+mongoose.connect('mongodb://localhost:27017/socialMediaDB')
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
-// 라우트 설정
+
+app.use('/api/comments', commentRoutes);
 app.use('/api/groups', groupRoutes);
-app.use('/api/comments', commentRoutes); // 댓글 라우트 추가
+app.use('/api/posts', postRoutes);
 
-// 서버 시작
 app.listen(PORT, () => {
-  console.log(`서버가 포트 ${PORT}에서 실행 중입니다.`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });

@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const Comment = require('../models/comment');
 
 // 댓글 등록
 router.post('/comments', async (req, res) => {
   try {
-    const { nickname, content, password } = req.body;
-    if (!nickname || !content || !password) {
+    const { nickname, content, password, postId } = req.body;
+    if (!nickname || !content || !password || !postId) {
       return res.status(400).json({ message: '잘못된 요청입니다' });
     }
 
-    const comment = new Comment({ nickname, content, password });
+    const comment = new Comment({ nickname, content, password, postId });
     await comment.save();
     res.status(200).json({
       id: comment._id,
@@ -27,12 +28,16 @@ router.post('/comments', async (req, res) => {
 // 댓글 목록 조회
 router.get('/comments', async (req, res) => {
   try {
-    const { page = 1, pageSize = 10 } = req.query;
-    const comments = await Comment.find()
+    const { page = 1, pageSize = 10, postId } = req.query;
+    if (!postId) {
+      return res.status(400).json({ message: 'Post ID is required' });
+    }
+
+    const comments = await Comment.find({ postId })
       .skip((page - 1) * pageSize)
       .limit(parseInt(pageSize))
       .exec();
-    const totalItemCount = await Comment.countDocuments();
+    const totalItemCount = await Comment.countDocuments({ postId });
 
     res.status(200).json({
       currentPage: parseInt(page),
@@ -87,7 +92,7 @@ router.delete('/comments/:id', async (req, res) => {
     if (comment.password !== password) return res.status(403).json({ message: '비밀번호가 틀렸습니다' });
 
     await comment.remove();
-    res.status(200).json({ message: '답글 삭제 성공' });
+    res.status(200).json({ message: '댓글 삭제 성공' });
   } catch (error) {
     console.error('Error deleting comment:', error);
     res.status(400).json({ message: '잘못된 요청입니다' });
