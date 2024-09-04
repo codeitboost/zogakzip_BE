@@ -3,7 +3,7 @@ POST http://localhost:3000/api/groups
 Content-Type: application/json
 
 {
-  "name": "Test",
+  "name": "zogakzip test group",
   "description": "This is a new group",
   "password": "groupPassword123",
   "isPublic": true
@@ -18,7 +18,7 @@ Host: localhost:3000
 
 //그룹 상세 조회
 ###
-GET /api/groups/66d5500f6a047b1d954d1778 HTTP/1.1
+GET /api/groups/66d5ea4d8635b27451910c37 HTTP/1.1
 Host: localhost:3000
 
 //그룹 정보 수정
